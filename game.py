@@ -39,6 +39,6 @@ def benchmark_algorithm(random_predict) -> int:
     return average_attempts
 
 if __name__ == "__main__":
-    # Запуск функции для проверки производительности
+    # Запуск функции
     benchmark_algorithm(random_predict)
 

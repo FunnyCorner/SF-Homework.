@@ -23,3 +23,7 @@ def game_core_v3(number: int = 1) -> int:
             high_limit = mid - 1  # Если загаданное число меньше, обновляем верхнюю границу
     
     return count  # Возвращаем количество попыток при неудаче
+
+print('Run benchmarking for game_core_v3: ', end='')
+score_game(game_core_v3)
+

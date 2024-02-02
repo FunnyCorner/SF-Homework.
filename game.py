@@ -1,29 +1,44 @@
 import numpy as np
 
-def game_core_v3(number: int = 1) -> int:
-    """
+def random_predict(number: int = 1) -> int:
+    """Рандомно угадываем число
+
     Args:
         number (int, optional): Загаданное число. Defaults to 1.
 
     Returns:
         int: Число попыток
     """
-    count = 0  # Инициализируем счетчик попыток
-    low_limit, high_limit = 1, 100  # Устанавливаем начальные границы поиска
-    
-    while low_limit <= high_limit:
-        mid = (low_limit + high_limit) // 2  # Находим среднее значение
-        count += 1  # Увеличиваем счетчик попыток
+    count = 0
 
-        if mid == number:
-            return count  # Если угадали число, возвращаем количество попыток
-        elif mid < number:
-            low_limit = mid + 1  # Если загаданное число больше, обновляем нижнюю границу
-        else:
-            high_limit = mid - 1  # Если загаданное число меньше, обновляем верхнюю границу
-    
-    return count  # Возвращаем количество попыток при неудаче
+    while True:
+        count += 1
+        predict_number = np.random.randint(1, 101)  # предполагаемое число
+        if number == predict_number:
+            break  # выход из цикла если угадали
+    return count
 
-print('Run benchmarking for game_core_v3: ', end='')
-score_game(game_core_v3)
+def benchmark_algorithm(random_predict) -> int:
+    """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
+
+    Args:
+        random_predict ([type]): функция угадывания
+
+    Returns:
+        int: среднее количество попыток
+    """
+    count_list = []
+    # np.random.seed(1)  # фиксируем сид для воспроизводимости
+    random_numbers = np.random.randint(1, 101, size=1000)  # генерируем список случайных чисел
+
+    for number in random_numbers:
+        count_list.append(random_predict(number))
+
+    average_attempts = int(np.mean(count_list))
+    print(f"Ваш алгоритм угадывает число в среднем за {average_attempts} попыток")
+    return average_attempts
+
+if __name__ == "__main__":
+    # Запуск функции для проверки производительности
+    benchmark_algorithm(random_predict)
 

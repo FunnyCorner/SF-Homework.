@@ -1,44 +1,34 @@
 import numpy as np
 
-def random_predict(number: int = 1) -> int:
-    """Рандомно угадываем число
+def binary_search_guess_number():
+    low = 1
+    high = 100
+    attempts = 0
 
-    Args:
-        number (int, optional): Загаданное число. Defaults to 1.
+    user_number = int(input("Загадайте число от 1 до 100: "))
 
-    Returns:
-        int: Число попыток
-    """
-    count = 0
+    while low <= high:
+        mid = (low + high) // 2
+        print(f"Это число {mid}?")
+        attempts += 1
 
-    while True:
-        count += 1
-        predict_number = np.random.randint(1, 101)  # предполагаемое число
-        if number == predict_number:
-            break  # выход из цикла если угадали
-    return count
+        user_input = input("Введите 'больше', 'меньше' или 'да': ").strip().lower()
 
-def benchmark_algorithm(random_predict) -> int:
-    """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
-
-    Args:
-        random_predict ([type]): функция угадывания
-
-    Returns:
-        int: среднее количество попыток
-    """
-    count_list = []
-    # np.random.seed(1)  # фиксируем сид для воспроизводимости
-    random_numbers = np.random.randint(1, 101, size=1000)  # генерируем список случайных чисел
-
-    for number in random_numbers:
-        count_list.append(random_predict(number))
-
-    average_attempts = int(np.mean(count_list))
-    print(f"Ваш алгоритм угадывает число в среднем за {average_attempts} попыток")
-    return average_attempts
+        if user_input == 'да':
+            print(f"Угадал за {attempts} попыток!")
+            break
+        elif user_input == 'больше':
+            low = mid + 1
+        elif user_input == 'меньше':
+            high = mid - 1
+        else:
+            print("Пожалуйста, введите 'больше', 'меньше' или 'да'.")
 
 if __name__ == "__main__":
-    # Запуск функции
-    benchmark_algorithm(random_predict)
+    binary_search_guess_number()
+
+
+
+
+
 

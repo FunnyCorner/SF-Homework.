@@ -1,31 +1,33 @@
 import numpy as np
 
-def binary_search_guess_number():
-    low = 1
-    high = 100
-    attempts = 0
+def random_guess_number():
+    # Генерируем случайный массив чисел от 1 до 100 и сортируем его
+    a = np.sort(np.random.randint(1, 101, size=10))
+    print(a)
 
-    user_number = int(input("Загадайте число от 1 до 100: "))
+    value = int(input("Загадайте число от 1 до 100: "))
+
+    attempts = 0
+    low = 0
+    high = len(a) - 1
 
     while low <= high:
         mid = (low + high) // 2
-        print(f"Это число {mid}?")
+        print(f"Это число {a[mid]}?")
         attempts += 1
 
-        user_input = input("Введите 'больше', 'меньше' или 'да': ").strip().lower()
-
-        if user_input == 'да':
+        if value == a[mid]:
             print(f"Угадал за {attempts} попыток!")
             break
-        elif user_input == 'больше':
+        elif value > a[mid]:
             low = mid + 1
-        elif user_input == 'меньше':
-            high = mid - 1
         else:
-            print("Пожалуйста, введите 'больше', 'меньше' или 'да'.")
+            high = mid - 1
+    else:
+        print("Число не найдено.")
 
 if __name__ == "__main__":
-    binary_search_guess_number()
+    random_guess_number()
 
 
 

@@ -1,34 +1,32 @@
-import numpy as np
-
-def random_guess_number():
-    # Генерируем случайный массив чисел от 1 до 100 и сортируем его
-    a = np.sort(np.random.randint(1, 101, size=10))
-    print(a)
-
-    value = int(input("Загадайте число от 1 до 100: "))
-
+def guess_number(secret_number):
+    low = 1
+    high = 100
     attempts = 0
-    low = 0
-    high = len(a) - 1
 
     while low <= high:
         mid = (low + high) // 2
-        print(f"Это число {a[mid]}?")
         attempts += 1
 
-        if value == a[mid]:
-            print(f"Угадал за {attempts} попыток!")
-            break
-        elif value > a[mid]:
+        # Загаданное число угадано
+        if mid == secret_number:
+            return attempts
+        
+        # Если загаданное число больше предполагаемого
+        elif mid < secret_number:
             low = mid + 1
+        
+        # Если загаданное число меньше предполагаемого
         else:
             high = mid - 1
-    else:
-        print("Число не найдено.")
 
-if __name__ == "__main__":
-    random_guess_number()
+# Пользователь загадывает число
+secret_number = int(input("Пожалуйста, загадайте число от 1 до 100: "))
 
+# Пытаемся угадать число
+attempts = guess_number(secret_number)
+
+# Выводим результат
+print(f"Компьютер угадал число {secret_number} за {attempts} попыток.")
 
 
 

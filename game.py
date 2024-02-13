@@ -1,3 +1,5 @@
+import numpy as np
+
 def guess_number(secret_number):
     low = 1
     high = 100
